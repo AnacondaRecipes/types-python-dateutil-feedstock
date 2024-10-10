@@ -12,26 +12,39 @@ source:
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: True  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
+    - python
     - pip
-    - python >=3.6
+    - wheel
+    - setuptools
   run:
-    - python >=3.6
+    - python
 
 test:
+  requires:
+    - pip
   commands:
-    - test -f $SP_DIR/dateutil-stubs/__init__.pyi
+    - python -m pip check
+    - test -f $SP_DIR/dateutil-stubs/__init__.pyi  # [not win]
+    - if not exist %SP_DIR%\\ateutil-stubs\\__init__.pyi exit 1  # [win] 
 
 
 about:
   home: https://github.com/python/typeshed
   summary: Typing stubs for python-dateutil
+  description: |
+    This is a PEP 561 type stub package for the python-dateutil package. 
+    It can be used by type-checking tools like mypy, pyright, pytype, 
+    PyCharm, etc. to check code that uses python-dateutil.
   license: Apache-2.0 AND MIT
   license_file: LICENSE
+  license_family: Apache
+  dev_url: https://github.com/python/typeshed/tree/main/stubs/python-dateutil
+  doc_url: https://github.com/python/typeshed/blob/main/README.md
 
 extra:
   recipe-maintainers:

@@ -30,7 +30,7 @@ test:
   commands:
     - python -m pip check
     - test -f $SP_DIR/dateutil-stubs/__init__.pyi  # [not win]
-    - if not exist %SP_DIR%\\ateutil-stubs\\__init__.pyi exit 1  # [win] 
+    - if not exist %SP_DIR%\\dateutil-stubs\\__init__.pyi exit 1  # [win] 
 
 
 about:

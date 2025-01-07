@@ -24,7 +24,8 @@ requirements:
 
 test:
   commands:
-    - test -f $SP_DIR/dateutil-stubs/__init__.pyi
+    - test -f $SP_DIR/dateutil-stubs/__init__.pyi  # [not win]
+    - test -f $SP_DIR\dateutil-stubs\__init__.pyi  # [win]
 
 about:
   home: https://github.com/python/typeshed
@@ -40,3 +41,7 @@ extra:
   recipe-maintainers:
     - fhoehle
     - conda-forge/mypy
+  skip-lints:
+    # There is nothing to import and check with pip
+    - missing_pip_check
+    - missing_imports_or_run_test_py

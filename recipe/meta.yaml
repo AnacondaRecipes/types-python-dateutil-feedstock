@@ -1,39 +1,49 @@
 {% set name = "types-python-dateutil" %}
-{% set version = "2.9.0.20241003" %}
-
+{% set version = "2.9.0.20241206" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/types-python-dateutil-{{ version }}.tar.gz
-  sha256: 58cb85449b2a56d6684e41aeefb4c4280631246a0da1a719bdbe6f3fb0317446
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/types_python_dateutil-{{ version }}.tar.gz
+  sha256: 18f493414c26ffba692a72369fea7a154c502646301ebfe3d56a04b3767284cb
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<38]
 
 requirements:
   host:
+    - python
     - pip
-    - python >=3.6
+    - wheel
+    - setuptools
   run:
-    - python >=3.6
+    - python
 
 test:
   commands:
-    - test -f $SP_DIR/dateutil-stubs/__init__.pyi
-
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/python/typeshed
   summary: Typing stubs for python-dateutil
-  license: Apache-2.0 AND MIT
+  license: Apache-2.0
   license_file: LICENSE
+  license_family: Apache
+  doc_url: https://github.com/python/typeshed/blob/main/README.md
+  dev_url: https://github.com/python/typeshed/tree/main
+  description: This is a PEP 561 type stub package for the python-dateutil package.
 
 extra:
   recipe-maintainers:
     - fhoehle
     - conda-forge/mypy
+  skip-lints:
+    # No tests inside
+    - missing_imports_or_run_test_py
+    - missing_tests

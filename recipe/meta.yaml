@@ -22,12 +22,11 @@ requirements:
     - setuptools
   run:
     - python
-    - pip
 
 test:
   commands:
     - pip check
-requires:
+  requires:
     - pip
 
 about:
@@ -45,8 +44,6 @@ extra:
     - fhoehle
     - conda-forge/mypy
   skip-lints:
-    # There is no requirements in setup.py and nothing to check with pip
-    - missing_pip_check
     # No tests inside
     - missing_imports_or_run_test_py
     - missing_tests

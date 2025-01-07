@@ -22,6 +22,13 @@ requirements:
     - setuptools
   run:
     - python
+    - pip
+
+test:
+  commands:
+    - pip check
+requires:
+    - pip
 
 about:
   home: https://github.com/python/typeshed
